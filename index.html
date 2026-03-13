@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sankalp 2K26 - Free Fire Tournament Registration</title>
+    <!-- Google Fonts for Gaming Aesthetic -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="glitch" data-text="SANKALP 2K26">SANKALP 2K26</h1>
+            <p class="subtitle">Ultimate Free Fire Showdown</p>
+        </div>
+    </header>
+
+    <!-- Events Section -->
+    <section class="events-section" id="events">
+        <h2 class="section-title">CHOOSE YOUR BATTLE</h2>
+        <div class="events-container">
+            <!-- Event 1 -->
+            <div class="event-card" data-event="bermuda">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="event-glow"></div>
+                        <h3>BERMUDA MATCH</h3>
+                        <span class="badge">FULL MAP</span>
+                        <div class="event-details">
+                            <p class="prize">Prize Pool: <span>₹1499</span></p>
+                            <p class="fee">Entry Fee: <span>₹400 / Squad</span></p>
+                        </div>
+                        <button class="btn-primary book-btn" onclick="openRegistration('Bermuda Match', 400)">BOOK
+                            NOW</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="event-card" data-event="clash-squad">
+                <div class="card-inner">
+                    <div class="card-front">
+                        <div class="event-glow"></div>
+                        <h3>CLASH SQUAD</h3>
+                        <span class="badge">4 v 4</span>
+                        <div class="event-details">
+                            <p class="prize">Prize Pool: <span>₹499</span></p>
+                            <p class="fee">Entry Fee: <span>₹200 / Squad</span></p>
+                        </div>
+                        <button class="btn-primary book-btn" onclick="openRegistration('Clash Squad', 200)">BOOK
+                            NOW</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modals Overlay Container -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+
+        <!-- Registration Form Modal -->
+        <div id="registrationModal" class="modal-content hidden">
+            <button class="close-btn" onclick="closeModals()">&times;</button>
+            <h2 class="modal-title">REGISTER: <span id="selectedEventName"></span></h2>
+            <form id="registrationForm" onsubmit="handleRegistrationSubmit(event)">
+                <div class="form-group">
+                    <label>Team Name <span class="required">*</span></label>
+                    <input type="text" id="teamName" required placeholder="Enter Squad Name">
+                </div>
+                <div class="form-group">
+                    <label>Captain Name <span class="required">*</span></label>
+                    <input type="text" id="captainName" required placeholder="In-Game Name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number <span class="required">*</span></label>
+                    <input type="tel" id="phoneNumber" required pattern="[0-9]{10}" placeholder="10-digit number">
+                </div>
+
+                <div class="player-ids-container">
+                    <h4 class="players-title">Roster UIDs</h4>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Player 1 UID <span class="required">*</span></label>
+                            <input type="text" id="p1Id" required>
+                        </div>
+                        <div class="col">
+                            <label>Player 2 UID <span class="required">*</span></label>
+                            <input type="text" id="p2Id" required>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col">
+                            <label>Player 3 UID <span class="required">*</span></label>
+                            <input type="text" id="p3Id" required>
+                        </div>
+                        <div class="col">
+                            <label>Player 4 UID <span class="required">*</span></label>
+                            <input type="text" id="p4Id" required>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary w-100 mt-4">PROCEED TO PAY ₹<span
+                        id="displayAmount">0</span></button>
+            </form>
+        </div>
+
+        <!-- Payment Modal -->
+        <div id="paymentModal" class="modal-content hidden">
+            <button class="close-btn" onclick="closeModals()">&times;</button>
+            <h2 class="modal-title">COMPLETE PAYMENT</h2>
+
+            <div class="payment-instructions">
+                <p>1. Scan the QR code using any UPI app (PhonePe, Google Pay, Paytm)</p>
+
+                <div class="qr-container">
+                    <img src="upi-qr.jpeg" alt="UPI Payment QR Code" class="qr-image">
+                </div>
+
+                <div class="upi-id-box">
+                    <p>UPI ID: <span>6304090388@ybl</span></p>
+                </div>
+
+                <p>2. Pay the entry fee: <span class="highlight">₹<span id="paymentAmount">0</span></span></p>
+                <p>3. Take screenshot of payment confirmation</p>
+                <p>4. Upload screenshot and submit</p>
+            </div>
+
+            <form id="paymentForm" onsubmit="handlePaymentSubmit(event)">
+                <div class="form-group">
+                    <label>Upload Payment Screenshot <span class="required">*</span></label>
+                    <div class="file-upload">
+                        <input type="file" id="paymentScreenshot" accept="image/*" required>
+                        <span class="file-custom">Choose file...</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary w-100 mt-4">Submit Payment</button>
+            </form>
+        </div>
+
+        <!-- Success Modal -->
+        <div id="successModal" class="modal-content text-center hidden">
+            <div class="success-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                    <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+            </div>
+            <h2 class="modal-title success-text">Registration Successful!</h2>
+            <p class="success-msg">Your payment screenshot has been received. Our team will verify and confirm your
+                slot.</p>
+
+            <div class="whatsapp-invite mt-4">
+                <p class="whatsapp-text">Join our WhatsApp group for match updates, room IDs, and tournament
+                    information:</p>
+                <a href="https://chat.whatsapp.com/LmsjsP0bH4334EjIo9WgBC?mode=gi_t" target="_blank"
+                    class="btn-whatsapp w-100 mt-4">JOIN WHATSAPP GROUP</a>
+            </div>
+
+            <button class="btn-secondary w-100 mt-4" onclick="closeModals()">BACK TO HOME</button>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>EVENT DETAILS</h3>
+                <p><strong>Date:</strong> 16 March 2026</p>
+                <p><strong>Time:</strong> 10:00 AM</p>
+                <p><strong>Venue:</strong> Teegala Krishna Reddy Engineering College (TKEM)</p>
+            </div>
+            <div class="footer-contact">
+                <h3>FOR REGISTRATION & INQUIRIES</h3>
+                <a href="tel:7989830719">📞 7989830719</a>
+                <a href="tel:7989320525">📞 7989320525</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <h3 class="spot-reg">Visit Our Stall For Spot Registration</h3>
+            <p>&copy; 2026 Sankalp Fest. All Rights Reserved.</p>
+        </div>
+        <div class="cyber-lines"></div>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
